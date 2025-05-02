@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 mongoose.connect(
-  "mongodb+srv://phucvy107:phucvyngocloan@cluster0.xg4b4qa.mongodb.net/"
+  "mongodb+srv://phucvy107:phucvyngocloan@cluster0.xg4b4qa.mongodb.net/esp32_sensor"
 );
 
 app.get("/", (req, res) => {
