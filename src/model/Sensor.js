@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TemperatureSchema = new Schema({
+const SensorSchema = new Schema({
   temperature: Number,
+  humidity: Number,
   timestamp: { type: Date, default: Date.now },
 });
-module.exports = mongoose.model("Tempurature", TemperatureSchema);
+module.exports = mongoose.model("Sensor", SensorSchema);
