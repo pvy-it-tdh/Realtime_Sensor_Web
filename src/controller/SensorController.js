@@ -33,3 +33,12 @@ exports.getTemperatureLatest = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+exports.renderHome = (req, res) => {
+  try {
+    // const sensor = await Sensor.find().sort({ timestamp: -1 }).limit(10);
+    res.render("index.ejs");
+  } catch (error) {
+    console.error("Error fetching sensor:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Sensor Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+    <!-- Thanh điều hướng với 3 gạch ngang -->
+    <div class="navbar">
+        <div class="icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <a href="/weather">Weather</a>
+        <a href="/databoard">Databoard</a>
+    </div>
+
+    <div class="content">
+        <h1>Real-time Sensor Data</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="dataTable">
+                <!-- Data will be dynamically inserted here -->
+            </tbody>
+        </table>
+
+        <!-- Thêm link tải file Excel -->
+        <a href="#" class="download-link" onclick="exportToExcel()">Download Excel</a>
+    </div>
+</body>
+<script src="/main.js"></script>
+
+</html>
