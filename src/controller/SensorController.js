@@ -2,7 +2,7 @@ const Sensor = require("../model/Sensor");
 exports.postSensor = async (req, res) => {
   const { temperature, humidity } = req.body;
   if (typeof temperature !== "number" || typeof humidity !== "number") {
-    return res.status(400).json({ error: "Temperature must be a number" });
+    return res.status(400).json({ error: "Sensor must be a number" });
   }
   try {
     const newSensor = new Sensor({ temperature, humidity });

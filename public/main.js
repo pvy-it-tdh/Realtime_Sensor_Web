@@ -1,5 +1,5 @@
 async function fetchData() {
-  const response = await fetch("/api/sensors");
+  const response = await fetch("/api/sensor");
   const data = await response.json();
 
   const tableBody = document.getElementById("dataTable");
