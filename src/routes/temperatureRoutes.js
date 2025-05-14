@@ -6,4 +6,5 @@ router.post("/sensor", SensorController.postSensor);
 router.get("/sensor", SensorController.getSensor);
 router.get("/sensor/latest", SensorController.getTemperatureLatest);
 router.get("/", SensorController.renderHome);
+router.get("/events", SensorController.subscribeSensor);
 module.exports = router;

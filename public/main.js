@@ -1,41 +1,46 @@
-async function fetchData() {
-  const response = await fetch("/api/sensor");
-  const data = await response.json();
+const tableBody = document.getElementById("dataTable");
+const dataForExcel = [];
 
-  const tableBody = document.getElementById("dataTable");
-  tableBody.innerHTML = "";
-  data.forEach((record) => {
-    const row = `<tr>
-          <td>${record.temperature} °C</td>
-          <td>${record.humidity} %</td>
-          <td>${new Date(record.timestamp).toLocaleString()}</td>
-        </tr>`;
-    tableBody.innerHTML += row;
-  });
-}
+const eventSource = new EventSource("/api/events");
 
-setInterval(fetchData, 2000);
-fetchData();
+eventSource.onmessage = function (event) {
+  const data = JSON.parse(event.data);
+  const timestamp = new Date(data.timestamp || Date.now()).toLocaleString(
+    "vi-VN",
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }
+  );
+
+  const row = document.createElement("tr");
+  row.innerHTML = `
+      <td>${parseFloat(data.temperature).toFixed(1)} °C</td>
+      <td>${parseFloat(data.humidity).toFixed(1)} %</td>
+      <td>${timestamp}</td>
+    `;
+  tableBody.prepend(row);
+
+  dataForExcel.unshift([
+    `${data.temperature} °C`,
+    `${data.humidity} %`,
+    timestamp,
+  ]);
+
+  if (tableBody.rows.length > 50) {
+    tableBody.deleteRow(50);
+    dataForExcel.splice(50, 1);
+  }
+};
 
 function exportToExcel() {
-  const table = document.getElementById("dataTable");
-  const rows = table.getElementsByTagName("tr");
-  const data = [];
-
-  data.push(["Temperature", "Humidity", "Timestamp"]);
-
-  for (let row of rows) {
-    const cells = row.getElementsByTagName("td");
-    const rowData = [];
-    for (let cell of cells) {
-      rowData.push(cell.textContent);
-    }
-    data.push(rowData);
-  }
-
-  const ws = XLSX.utils.aoa_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Sensor Data");
-
-  XLSX.writeFile(wb, "sensor_data.xlsx");
+  const data = [["Temperature", "Humidity", "Timestamp"], ...dataForExcel];
+  const worksheet = XLSX.utils.aoa_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sensor Data");
+  XLSX.writeFile(workbook, "sensor_data.xlsx");
 }
