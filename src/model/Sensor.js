@@ -5,7 +5,7 @@ const SensorSchema = new mongoose.Schema(
     temperature: Number,
     humidity: Number,
   },
-  { timestamps: true } // <-- Gợi ý nên thêm dòng này
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Sensor", SensorSchema);

@@ -8,7 +8,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 const char *ssid = "Vành Thỏ";
 const char *password = "Thanh0908";
-const char *serverUrl = "http://192.168.246.204:3000/api/sensor";
+const char *serverUrl = "http://192.168.111.204:3000/api/sensor";
 
 // Khai báo handle cho task
 TaskHandle_t SensorTaskHandle;

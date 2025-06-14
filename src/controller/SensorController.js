@@ -55,7 +55,6 @@ exports.subscribeSensor = (req, res) => {
   // Xử lý ngắt kết nối
   req.on("close", () => {
     clients = clients.filter((client) => client !== res);
-    console.log("Client SSE disconnected. Total:", clients.length);
   });
 };
 
