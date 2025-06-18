@@ -7,6 +7,7 @@ COPY package*.json ./
 # Installing dependencies
 RUN npm install 
 # Copying the rest of the application code
+RUN npm install --global nodemon
 COPY . .
 # Exposing port 3000
 EXPOSE 3000
